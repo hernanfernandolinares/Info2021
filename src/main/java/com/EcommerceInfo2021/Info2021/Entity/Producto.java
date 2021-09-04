@@ -3,11 +3,9 @@ package com.EcommerceInfo2021.Info2021.Entity;
 import com.sun.istack.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Producto {
@@ -30,7 +28,8 @@ public class Producto {
     @CreationTimestamp
     private LocalDateTime fechaDeCreacion;
     private Boolean publicado;
-
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Linea> lineas;
 
     public String getNombre() {
         return nombre;
@@ -74,5 +73,34 @@ public class Producto {
 
     public Long getIdProducto() {
         return idProducto;
+    }
+
+    public Producto() {
+    }
+
+    public void setIdProducto(Long idProducto) {
+        this.idProducto = idProducto;
+    }
+
+    public LocalDateTime getFechaDeCreacion() {
+        return fechaDeCreacion;
+    }
+
+    public void setFechaDeCreacion(LocalDateTime fechaDeCreacion) {
+        this.fechaDeCreacion = fechaDeCreacion;
+    }
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "idProducto=" + idProducto +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", precioUnitario=" + precioUnitario +
+                ", contenido='" + contenido + '\'' +
+                ", fechaDeCreacion=" + fechaDeCreacion +
+                ", publicado=" + publicado +
+                ", lineas=" + lineas +
+                '}';
     }
 }

@@ -1,5 +1,6 @@
 package com.EcommerceInfo2021.Info2021.Entity;
 
+import com.EcommerceInfo2021.Info2021.Util.ValidationHelper;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -28,15 +29,22 @@ public class Usuario {
     @NotBlank(message = "El apellido no debe ser blanco o nulo")
     private String apellido;
     @Column(unique = true)
-    //@Email(regexp = ValidationHelper.EMAL_REGEX)
+    @Email(regexp = ValidationHelper.EMAIL_REGEX)
     private String email;
     @NotBlank
     private String password;
     @CreationTimestamp
     private LocalDateTime fechaDeCreacion;
+    @NotBlank
     private String ciudad;
+    @NotBlank
     private String provincia;
+    @NotBlank
     private String pais;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Carrito> carritos;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = false)
+    List<Orden> ordens;
 
 
     public Long getId() {
@@ -104,4 +112,43 @@ public class Usuario {
         this.fechaDeCreacion = fechaDeCreacion;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Carrito> getCarritos() {
+        return carritos;
+    }
+
+    public void setCarritos(List<Carrito> carritos) {
+        this.carritos = carritos;
+    }
+
+    public List<Orden> getOrdens() {
+        return ordens;
+    }
+
+    public void setOrdens(List<Orden> ordens) {
+        this.ordens = ordens;
+    }
+
+    public Usuario() {
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", fechaDeCreacion=" + fechaDeCreacion +
+                ", ciudad='" + ciudad + '\'' +
+                ", provincia='" + provincia + '\'' +
+                ", pais='" + pais + '\'' +
+                ", carritos=" + carritos +
+                ", ordens=" + ordens +
+                '}';
+    }
 }

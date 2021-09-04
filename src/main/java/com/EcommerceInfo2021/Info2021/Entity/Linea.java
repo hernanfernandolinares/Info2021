@@ -19,7 +19,15 @@ public class Linea {
     @Transient
     private BigDecimal subTotal;
     private Long cantidad;
-    private Long precioUnitario;
+    @ManyToOne
+    @JoinColumn(name = "carrito")
+    Carrito carrito;
+    @ManyToOne
+    @JoinColumn(name = "orden")
+    Orden orden;
+    @ManyToOne
+    @JoinColumn
+    Producto producto;
 
     public BigDecimal getSubTotal() {
         return subTotal;
@@ -37,19 +45,41 @@ public class Linea {
         this.cantidad = cantidad;
     }
 
-    public Long getPrecioUnitario() {
-        return precioUnitario;
-    }
-
-    public void setPrecioUnitario(Long precioUnitario) {
-        this.precioUnitario = precioUnitario;
-    }
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Linea() {
+    }
+
+    public Carrito getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(Carrito carrito) {
+        this.carrito = carrito;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    @Override
+    public String toString() {
+        return "Linea{" +
+                "id=" + id +
+                ", subTotal=" + subTotal +
+                ", cantidad=" + cantidad +
+                ", carrito=" + carrito +
+                ", producto=" + producto +
+                '}';
     }
 }

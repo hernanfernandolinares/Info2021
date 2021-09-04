@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,6 +32,14 @@ public class Carrito {
     private LocalDateTime fechaUltimaModificacion;
     @Transient
     private BigDecimal subTotal;
+    @Column(name = "Ativo")
+    @NotBlank
+    private boolean estaActivo;
+    @ManyToOne
+    @JoinColumn(name = "usuario")
+    Usuario usuario;
+    @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = false)
+    List<Linea> lineas;
 
     public Long getId() {
         return id;
@@ -40,6 +49,13 @@ public class Carrito {
         this.id = id;
     }
 
+    public boolean isEstaActivo() {
+        return estaActivo;
+    }
+
+    public void setEstaActivo(boolean estaActivo) {
+        this.estaActivo = estaActivo;
+    }
 
     public Boolean getEstado() {
         return estado;
@@ -79,5 +95,38 @@ public class Carrito {
 
     public void setSubTotal(BigDecimal subTotal) {
         this.subTotal = subTotal;
+    }
+
+    public Carrito() {
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<Linea> getLineas() {
+        return lineas;
+    }
+
+    public void setLineas(List<Linea> lineas) {
+        this.lineas = lineas;
+    }
+
+    @Override
+    public String toString() {
+        return "Carrito{" +
+                "id=" + id +
+                ", estado=" + estado +
+                ", generadoPor=" + generadoPor +
+                ", fechaDeCreacion=" + fechaDeCreacion +
+                ", fechaUltimaModificacion=" + fechaUltimaModificacion +
+                ", subTotal=" + subTotal +
+                ", usuario=" + usuario +
+                ", lineas=" + lineas +
+                '}';
     }
 }

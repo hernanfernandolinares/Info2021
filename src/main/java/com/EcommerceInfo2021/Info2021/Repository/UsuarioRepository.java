@@ -13,7 +13,8 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
 
     List<Usuario> findByFechaDeCreacionBetween(LocalDateTime desde, LocalDateTime hasta);
 
-    List<Usuario> findByNombreContainingAndApellidoContainingAndDireccionContaining(String nombre, String apellido, String direccion);
+    List<Usuario> findByNombreContainingAndApellidoContainingAndPaisContainingAndProvinciaContainingAndCiudadContaining
+            (String nombre, String apellido, String pais,String provincia, String ciudad);
 
 
 }

@@ -30,6 +30,7 @@ public class UsuarioRunner implements CommandLineRunner {
         usuario.setPais("Argentina");
         usuario.setProvincia("Corrientes");
         usuario.setCiudad("Corrientes");
+        usuario.setPassword("12345");
         usuario = usuarioRepository.save(usuario);
     }
 }
