@@ -22,7 +22,7 @@ public class Usuario {
     + pais: string*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idUsuario;
+    private Long id;
     @NotBlank(message = "El nombre no debe ser blanco o nulo")
     private String nombre;
     @NotBlank(message = "El apellido no debe ser blanco o nulo")
@@ -38,20 +38,19 @@ public class Usuario {
     private String provincia;
     private String pais;
 
-    @OneToMany( mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Carrito> carritos = new ArrayList<>();
 
     public Long getId() {
-        return idUsuario;
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public LocalDateTime getFechaDeCreacion() {
         return fechaDeCreacion;
     }
 
-    public List<Carrito> getCarritos() {
-        return carritos;
-    }
 
     public String getNombre() {
         return nombre;

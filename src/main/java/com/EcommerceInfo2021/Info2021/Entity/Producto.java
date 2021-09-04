@@ -31,6 +31,7 @@ public class Producto {
     private LocalDateTime fechaDeCreacion;
     private Boolean publicado;
 
+
     public String getNombre() {
         return nombre;
     }

@@ -22,7 +22,7 @@ public class Carrito {
     public enum generado{mobile, web, servicio}
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCarrito;
+    private Long id;
     private Boolean estado;
     private generado generadoPor;
     @CreationTimestamp
@@ -31,20 +31,15 @@ public class Carrito {
     private LocalDateTime fechaUltimaModificacion;
     @Transient
     private BigDecimal subTotal;
-    @ManyToOne(fetch = FetchType.LAZY)
-    Carrito carrito;
-    @ManyToOne(fetch = FetchType.LAZY)
-    Usuario usuario;
-    @OneToMany(mappedBy = "idLinea",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Linea> lineas = new ArrayList<>();
 
-    public Long getIdCarrito() {
-        return idCarrito;
+    public Long getId() {
+        return id;
     }
 
-    public List<Linea> getLineas() {
-        return lineas;
+    public void setId(Long id) {
+        this.id = id;
     }
+
 
     public Boolean getEstado() {
         return estado;

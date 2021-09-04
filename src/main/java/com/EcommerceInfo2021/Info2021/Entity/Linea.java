@@ -15,13 +15,12 @@ public class Linea {
         + precioUnitario: long*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idLinea;
+    private Long id;
     @Transient
     private BigDecimal subTotal;
     private Long cantidad;
     private Long precioUnitario;
-    @ManyToOne
-    private Producto producto;
+
     public BigDecimal getSubTotal() {
         return subTotal;
     }
@@ -45,7 +44,12 @@ public class Linea {
     public void setPrecioUnitario(Long precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
-    public Long getIdLinea() {
-        return idLinea;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

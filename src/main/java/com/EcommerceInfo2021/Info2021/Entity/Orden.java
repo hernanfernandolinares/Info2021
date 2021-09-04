@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Oden {
+public class Orden {
     /*+ id :long
     + idCarrito: long FK carrito
     + detalleCompra: lineas fk linea
@@ -15,14 +15,10 @@ public class Oden {
     + idUsuario: long FK usuario*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idOrden;
-    @OneToMany( mappedBy = "idLinea",cascade = CascadeType.ALL, orphanRemoval = false)
-    private List<Linea> lineas = new ArrayList<>();
-    @OneToOne
-    private Carrito carrito;
+    private Long id;
+
     private String observacion;
     private boolean estaActivo;
-    @OneToOne
-    private Usuario usuario;
+
 
 }
