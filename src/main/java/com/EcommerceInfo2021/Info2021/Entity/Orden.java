@@ -27,8 +27,22 @@ public class Orden {
     private Carrito carrito;
     @ManyToOne
     Usuario usuario;
-    @OneToMany(mappedBy = "orden",orphanRemoval = true)
+    @OneToMany(mappedBy = "orden")
     private List<LineaOrden> lineaOrdens=new ArrayList<>();
+
+    public Orden(String observacion, Carrito carrito, Usuario usuario) {
+        this.observacion = observacion;
+        this.carrito = carrito;
+        this.usuario = usuario;
+    }
+
+    public List<LineaOrden> getLineaOrdens() {
+        return lineaOrdens;
+    }
+
+    public void setLineaOrdens(List<LineaOrden> lineaOrdens) {
+        this.lineaOrdens = lineaOrdens;
+    }
 
     public Long getId() {
         return id;

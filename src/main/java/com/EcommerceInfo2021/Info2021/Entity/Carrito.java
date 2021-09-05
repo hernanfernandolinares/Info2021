@@ -94,14 +94,6 @@ public class Carrito {
     public Carrito() {
     }
 
-    public boolean isEstaActivo() {
-        return estaActivo;
-    }
-
-    public void setEstaActivo(boolean estaActivo) {
-        this.estaActivo = estaActivo;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }

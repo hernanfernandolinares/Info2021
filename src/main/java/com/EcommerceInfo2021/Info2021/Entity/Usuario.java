@@ -47,6 +47,7 @@ public class Usuario {
     @JsonIgnore
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Carrito> carritos;
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = false)
     List<Orden> ordens;
 

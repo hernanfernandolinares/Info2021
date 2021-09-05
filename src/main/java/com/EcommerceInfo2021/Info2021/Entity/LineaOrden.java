@@ -24,6 +24,17 @@ public class LineaOrden {
     @JoinColumn(name = "producto_id")
     private Producto producto;
 
+    public LineaOrden() {
+
+    }
+
+    public LineaOrden(Double precio, Long cantidad, Orden orden, Producto producto) {
+        this.precio = precio;
+        this.cantidad = cantidad;
+        this.orden = orden;
+        this.producto = producto;
+    }
+
     public Producto getProducto() {
         return producto;
     }
