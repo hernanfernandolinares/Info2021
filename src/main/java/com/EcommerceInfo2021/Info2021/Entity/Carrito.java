@@ -24,22 +24,20 @@ public class Carrito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Boolean estado;
-    private generado generadoPor;
+    private String generadoPor; //M W
     @CreationTimestamp
     private LocalDateTime fechaDeCreacion;
     @UpdateTimestamp
     private LocalDateTime fechaUltimaModificacion;
     @Transient
-    private BigDecimal subTotal;
+    private Double total;
     @Column(name = "Ativo")
-    @NotBlank
-    private boolean estaActivo;
+    private boolean estaActivo= true;
     @ManyToOne
     @JoinColumn(name = "usuario")
-    Usuario usuario;
+    private Usuario usuario;
     @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = false)
-    List<Linea> lineas;
+    List<Linea> lineas=new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -49,27 +47,19 @@ public class Carrito {
         this.id = id;
     }
 
-    public boolean isEstaActivo() {
+    public boolean getEstaActivo() {
         return estaActivo;
     }
 
-    public void setEstaActivo(boolean estaActivo) {
-        this.estaActivo = estaActivo;
+    public void setEstaActivo() {
+        this.estaActivo = false;
     }
 
-    public Boolean getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
-    }
-
-    public generado getGeneradoPor() {
+    public String getGeneradoPor() {
         return generadoPor;
     }
 
-    public void setGeneradoPor(generado generadoPor) {
+    public void setGeneradoPor(String generadoPor) {
         this.generadoPor = generadoPor;
     }
 
@@ -89,15 +79,27 @@ public class Carrito {
         this.fechaUltimaModificacion = fechaUltimaModificacion;
     }
 
-    public BigDecimal getSubTotal() {
-        return subTotal;
+    public Double getTotal() {
+        total=0.0;
+        for (Linea linea:lineas) {
+            total+=linea.getSubTotal();
+        }
+        return total;
     }
 
-    public void setSubTotal(BigDecimal subTotal) {
-        this.subTotal = subTotal;
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
     public Carrito() {
+    }
+
+    public boolean isEstaActivo() {
+        return estaActivo;
+    }
+
+    public void setEstaActivo(boolean estaActivo) {
+        this.estaActivo = estaActivo;
     }
 
     public Usuario getUsuario() {
@@ -116,17 +118,4 @@ public class Carrito {
         this.lineas = lineas;
     }
 
-    @Override
-    public String toString() {
-        return "Carrito{" +
-                "id=" + id +
-                ", estado=" + estado +
-                ", generadoPor=" + generadoPor +
-                ", fechaDeCreacion=" + fechaDeCreacion +
-                ", fechaUltimaModificacion=" + fechaUltimaModificacion +
-                ", subTotal=" + subTotal +
-                ", usuario=" + usuario +
-                ", lineas=" + lineas +
-                '}';
-    }
 }

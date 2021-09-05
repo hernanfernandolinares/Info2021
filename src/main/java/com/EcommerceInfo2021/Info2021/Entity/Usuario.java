@@ -1,6 +1,8 @@
 package com.EcommerceInfo2021.Info2021.Entity;
 
 import com.EcommerceInfo2021.Info2021.Util.ValidationHelper;
+import com.fasterxml.jackson.annotation.JacksonInject;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -14,7 +16,7 @@ import java.util.List;
 public class Usuario {
    /* + id: long
     + nombre: string
-    + apeliido: string
+    + apellido: string
     + email: string
     + password: string
     + fechaCreacion: localDate
@@ -32,6 +34,7 @@ public class Usuario {
     @Email(regexp = ValidationHelper.EMAIL_REGEX)
     private String email;
     @NotBlank
+    @JsonIgnore
     private String password;
     @CreationTimestamp
     private LocalDateTime fechaDeCreacion;
@@ -41,6 +44,7 @@ public class Usuario {
     private String provincia;
     @NotBlank
     private String pais;
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Carrito> carritos;
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = false)
@@ -118,6 +122,10 @@ public class Usuario {
 
     public List<Carrito> getCarritos() {
         return carritos;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setCarritos(List<Carrito> carritos) {

@@ -6,15 +6,14 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
     List<Usuario> findByFechaDeCreacionAfter(LocalDateTime dateTime);
 
-    List<Usuario> findByFechaDeCreacionBetween(LocalDateTime desde, LocalDateTime hasta);
+    List<Usuario> findByCiudadContaining(String ciudad);
 
-    List<Usuario> findByNombreContainingAndApellidoContainingAndPaisContainingAndProvinciaContainingAndCiudadContaining
-            (String nombre, String apellido, String pais,String provincia, String ciudad);
+    Usuario findById(String id);
 
-
-}
+    }

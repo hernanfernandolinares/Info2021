@@ -1,5 +1,7 @@
 package com.EcommerceInfo2021.Info2021.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.Constraint;
 import java.math.BigDecimal;
@@ -17,23 +19,22 @@ public class Linea {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Transient
-    private BigDecimal subTotal;
+    private Double subTotal;
     private Long cantidad;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "carrito")
     Carrito carrito;
     @ManyToOne
-    @JoinColumn(name = "orden")
-    Orden orden;
-    @ManyToOne
     @JoinColumn
     Producto producto;
 
-    public BigDecimal getSubTotal() {
+    public Double getSubTotal() {
+        subTotal= producto.getPrecioUnitario()*cantidad;
         return subTotal;
     }
 
-    public void setSubTotal(BigDecimal subTotal) {
+    public void setSubTotal(Double subTotal) {
         this.subTotal = subTotal;
     }
 

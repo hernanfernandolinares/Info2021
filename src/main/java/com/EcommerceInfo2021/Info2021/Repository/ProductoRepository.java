@@ -6,10 +6,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface ProductoRepository extends CrudRepository<Producto,Long> {
-    @Query("SELECT p FROM Producto p WHERE p.nombre LIKE %:comienzaCon%")
-    List<Producto> buscarPorNombreQueComienza(@Param("comienzaCon") String comienzaCon);
+public interface ProductoRepository extends CrudRepository<Producto, Long> {
+    Iterable<Producto> findAllByNombreContaining(String nombre);
+    Iterable<Producto> findAllByPublicadoFalse();
+
 }

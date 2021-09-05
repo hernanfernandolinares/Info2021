@@ -20,16 +20,15 @@ public class Orden {
     private Long id;
     @Max(200)
     private String observacion;
-    @Column(name = "Ativo")
-    @NotBlank
-    private boolean estaActivo;
+    @Transient
+    private Double total;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "carrito")
     private Carrito carrito;
     @ManyToOne
     Usuario usuario;
-    @OneToMany(mappedBy = "orden", cascade = CascadeType.ALL, orphanRemoval = false)
-    List<Linea> lineas;
+    @OneToMany(mappedBy = "orden",orphanRemoval = true)
+    private List<LineaOrden> lineaOrdens=new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -45,14 +44,6 @@ public class Orden {
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
-    }
-
-    public boolean isEstaActivo() {
-        return estaActivo;
-    }
-
-    public void setEstaActivo(boolean estaActivo) {
-        this.estaActivo = estaActivo;
     }
 
     public Carrito getCarrito() {
@@ -74,14 +65,15 @@ public class Orden {
     public Orden() {
     }
 
-    @Override
-    public String toString() {
-        return "Orden{" +
-                "id=" + id +
-                ", observacion='" + observacion + '\'' +
-                ", estaActivo=" + estaActivo +
-                ", carrito=" + carrito +
-                ", usuario=" + usuario +
-                '}';
+    public Double getTotal() {
+        total=0.0;
+        for (LineaOrden linea:lineaOrdens) {
+            total+=linea.getSubTotal();
+        }
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 }

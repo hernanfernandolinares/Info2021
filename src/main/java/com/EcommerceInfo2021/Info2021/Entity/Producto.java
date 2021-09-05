@@ -1,5 +1,6 @@
 package com.EcommerceInfo2021.Info2021.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -9,27 +10,33 @@ import java.util.List;
 
 @Entity
 public class Producto {
+
+
     /*+ id :long
-    + nombre: string
-    + descripcion: string
-    + precioUnicatario: long
-    + contenido: string
-    + fechaCreacion: localDate
-    + publicado: boolean*/
+        + nombre: string
+        + descripcion: string
+        + precioUnicatario: long
+        + contenido: string
+        + fechaCreacion: localDate
+        + publicado: boolean*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idProducto;
+    private Long id;
     @NotNull
     private String nombre;
     private String descripcion;
     @NotNull
-    private Long precioUnitario;
+    private Double precioUnitario;
     private String contenido;
     @CreationTimestamp
     private LocalDateTime fechaDeCreacion;
     private Boolean publicado;
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = false)
     List<Linea> lineas;
+    @JsonIgnore
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = false)
+    List<LineaOrden> lineaOrdensM;
 
     public String getNombre() {
         return nombre;
@@ -47,11 +54,11 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public Long getPrecioUnitario() {
+    public Double getPrecioUnitario() {
         return precioUnitario;
     }
 
-    public void setPrecioUnitario(Long precioUnitario) {
+    public void setPrecioUnitario(Double precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
 
@@ -71,18 +78,18 @@ public class Producto {
         this.publicado = publicado;
     }
 
-    public Long getIdProducto() {
-        return idProducto;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Producto() {
     }
 
-    public void setIdProducto(Long idProducto) {
-        this.idProducto = idProducto;
-    }
-
-    public LocalDateTime getFechaDeCreacion() {
+   public LocalDateTime getFechaDeCreacion() {
         return fechaDeCreacion;
     }
 
@@ -93,7 +100,7 @@ public class Producto {
     @Override
     public String toString() {
         return "Producto{" +
-                "idProducto=" + idProducto +
+                "idProducto=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", precioUnitario=" + precioUnitario +
